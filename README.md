@@ -22,7 +22,7 @@ Assignment 3, VIZA 626 Generative Art &amp; Design (Spring 2025)
   <h3 align="center">Unreal Petzal Lens</h3>
 
   <p align="center">
-    This project recreates the distinct swirly bokeh effect of the vintage Helios 44-2 lens using a custom post-process material in Unreal Engine. By simulating the optical aberrations and radial blur characteristic of Petzval-style lenses, the shader aims to introduces a dreamy, cinematic depth to out-of-focus areas—especially around the edges of the frame. The effect dynamically responds to camera focus and aperture settings, allowing for real-time artistic control in virtual production and stylized rendering environments.
+This project recreates the distinct swirly bokeh effect of the vintage Helios 44-2 lens using a custom post-process material in Unreal Engine. By simulating the optical aberrations and radial blur characteristic of Petzval-style lenses, the shader aims to introduces a dreamy, cinematic depth to out-of-focus areas—especially around the edges of the frame. The effect dynamically responds to camera focus and aperture settings, allowing for real-time artistic control in virtual production and stylized rendering environments.
     <br />
     <a  /> 
     <br />
@@ -39,7 +39,7 @@ Figure 1. Post Process Material showcasing my WIP swirly bokeh effect in Unreal.
 
 <!-- Abstract -->
 ## Abstract
-Inspired by the optical quirks of vintage lenses, this project explores how real-time shaders can evoke emotional texture through simulated imperfection. The custom Petzval lens shader recreates the swirly bokeh and radial distortion of the Helios 44-2, not as a purely technical exercise, but as a tool for atmospheric storytelling. Built in Unreal Engine’s post-process pipeline, the shader blends circular blur, camera depth cues, and controlled UV distortion to mimic the eccentricities of analog glass. This work investigates how emulating physical lens characteristics in digital space can enhance visual mood, bridging the gap between photorealism and expressive rendering.
+Inspired by the optical quirks of vintage lenses, this project explores how real-time shaders can evoke emotional texture through simulated imperfection. The custom Petzval lens shader recreates the swirly bokeh and radial distortion of the Helios 44-2, not as a purely technical exercise, but as a tool for atmospheric storytelling. Built in Unreal Engine’s post-process pipeline, the shader blends circular blur, camera depth cues, and controlled UV distortion to mimic the quirks of analog glass. This work investigates how emulating characteristics of physical lens in a digital space can enhance visual mood, bridging the gap between photorealism and expressive rendering.
 
 [![fresnel_eq][images-fig2]](https://example.com)
 
@@ -62,11 +62,11 @@ Figure 4. Incident Angle. The equation and math behind the fresnel effect.
 [![shader_graph][images-fig5]](https://example.com)
 Figure 5. This is my complete shader graph used to build my ghostly shader in Unreal. 
 
-The shader was implemented as a custom post-process material in Unreal Engine, aimed at recreating the swirling bokeh and radial blur typical of Petzval-style lenses. The approach builds upon the engine’s cinematic depth of field system, which simulates real-world camera behaviors using Circle of Confusion (CoC) calculations and diaphragm-based blur models [3]. However, Unreal's default implementation lacks support for swirl-based distortion and non-uniform bokeh shapes, which this project addresses through UV-based manipulations.
+The shader was implemented as a custom post-process material in Unreal Engine to recreate the swirling bokeh and radial blur associated with Petzval-style lenses. This work builds upon Unreal Engine’s existing cinematic depth of field pipeline, which models real-world optics using physically-based blur calculations, including Circle of Confusion (CoC) and diaphragm-based rendering [3]. However, the default implementation lacks support for swirl distortion and non-uniform bokeh behavior, which this project addresses through custom UV manipulations and depth masking.
 
-To simulate the optical swirl, the shader calculates each pixel’s radial distance from the screen center and uses it to rotate UV coordinates outward in a circular pattern. These rotated UVs are sampled multiple times across an angular spread to approximate a soft, directional blur. The blur intensity increases with distance from the focal plane, controlled through a depth-based mask derived by comparing scene depth to camera focus distance. Artist-tunable parameters—including swirl amount, blur radius, and aperture—allow real-time customization of the effect.
+To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
 
-While Epic’s native depth of field tools serve as the technical foundation, this project extends their functionality by layering stylized imperfections onto the rendering pipeline, introducing the expressive qualities associated with vintage lenses.
+As part of the development process, educational resources such as Unreal Engine’s official documentation [3] and YouTube tutorials [4] were used iteratively to test and refine implementation strategies. These materials helped clarify how Unreal internally handles cinematic depth of field, informing how custom logic could be layered on top of the engine’s rendering architecture. The final shader combines these techniques to deliver a stylized, camera-aware blur effect that mimics the analog flaws of Petzval-style lenses.
 
 [![inner_fresnel][images-fig6]](https://example.com)
 Figure 6. Inner fresnel node graph. 
