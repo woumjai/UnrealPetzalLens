@@ -44,13 +44,13 @@ Inspired by the optical quirks of vintage lenses, this project explores how real
 <!-- Introduction and Related Works -->
 ## Introduction and Related Works
 
-[![fresnel_eq][images-fig2]](https://example.com)
+[![regular_DOF][images-fig2]](https://example.com)
 
 Figure 2. Real-world photograph demonstrating conventional bokeh.
 
 The Petzval-style bokeh, most famously produced by the Helios 44-2 lens, is known for its swirling background blur and dreamlike distortion around the edges of the frame—an optical flaw turned artistic signature. In photography and optics, bokeh refers to the visual quality of out-of-focus areas, particularly the way light is shaped and softened by a lens’s optical design. As Vorenkamp explains, this quality depends on elements like spherical aberration, aperture blade geometry, and the lens's internal construction, which collectively determine how background highlights are rendered [2]. Rockwell adds that bokeh is a direct result of how a lens reproduces out-of-focus point sources of light, and that even subtle differences in lens design can dramatically affect the smoothness and emotional tone of the background [1].
 
-[![fresnel_lake][images-fig3]](https://example.com)
+[![swirl_bokeh][images-fig3]](https://example.com)
 Figure 3. The swirly bokeh effect in real life. The background follows a concentric swirl blur while leaving the focal point or subject sharp and unaffected by distortion. 
 
 This project draws from these principles to investigate how analog lens behavior can be emulated for artistic effect in real-time rendering. Built within Unreal Engine’s post-process pipeline, the shader incorporates depth-based masking, radial UV distortion, and circular blur sampling to replicate the characteristic swirl of Petzval-style optics. While cinematic depth of field in Unreal achieves photographic realism, it often lacks the expressive asymmetries and nuanced aberrations that give vintage lenses their signature look. This shader embraces those imperfections, using them not as flaws to be corrected, but as visual tools to evoke atmosphere and memory within virtual production workflows. 
@@ -58,15 +58,15 @@ This project draws from these principles to investigate how analog lens behavior
 
 ## Methodology
 
-[![incident_angle][images-fig4]](https://example.com)
+[![UE_Dof][images-fig4]](https://example.com)
 Figure 4. DOF demonstrated in unreal natively. Image sourced from.[3]
 
-[![shader_graph][images-fig5]](https://example.com)
+[![regular_DOF][images-fig5]](https://example.com)
 Figure 5. The demo scene with only native unreal DOF.
 
 The shader was implemented as a custom post-process material in Unreal Engine to recreate the swirling bokeh and radial blur associated with Petzval-style lenses. This work builds upon Unreal Engine’s existing cinematic depth of field pipeline, which models real-world optics using physically-based blur calculations, including Circle of Confusion (CoC) and diaphragm-based rendering [3]. However, the default implementation lacks support for swirl distortion and non-uniform bokeh behavior, which this project addresses through custom UV manipulations and depth masking.
 
-[![inner_fresnel][images-fig6]](https://example.com)
+[![shadertoy_code][images-fig6]](https://example.com)
 Figure 6. The swirl bokeh effect recreated in shader toy to nail down the math and implementation look first.  
 
 To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
@@ -137,11 +137,11 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 [images-fig1]: Assignment03_pics/Iteration002.png
-[images-fig2]: Assignment03_pics/fresnel_eq.png
+[images-fig2]: Assignment03_pics/swirl_bokeh.png
 [images-fig3]: Assignment03_pics/lake_ex.jpg
 [images-fig4]: Assignment03_pics/incidentAngle.png
 [images-fig5]: Assignment03_pics/shader_graph_full.png
-[images-fig6]: Assignment03_pics/Fresnel_inner.png
+[images-fig6]: Assignment03_pics/shadertoy_code.png
 [images-fig7]: Assignment03_pics/Fresnel_outer.png
 [images-fig8]: Assignment03_pics/test_manny.png
 [images-fig9]: Assignment03_pics/ghostly_ref.png
