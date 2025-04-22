@@ -69,7 +69,7 @@ The shader was implemented as a custom post-process material in Unreal Engine to
 [![shadertoy_code][images-fig6]](https://example.com)
 Figure 6. The swirl bokeh effect recreated in shader toy to nail down the math and implementation look first.  
 
-To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
+To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this and applying the rotation matrix to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, and aperture size are exposed for real-time tuning.
 
 [![shader_graph][images-fig7]](https://example.com)
 Figure 7. Outer fresnel node graph. 
