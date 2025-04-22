@@ -61,7 +61,7 @@ This project draws from these principles to investigate how analog lens behavior
 [![UE_Dof][images-fig4]](https://example.com)
 Figure 4. DOF demonstrated in unreal natively. Image sourced from.[3]
 
-[![regular_DOF][images-fig5]](https://example.com)
+[![rotation_matrix][images-fig5]](https://example.com)
 Figure 5. The demo scene with only native unreal DOF.
 
 The shader was implemented as a custom post-process material in Unreal Engine to recreate the swirling bokeh and radial blur associated with Petzval-style lenses. This work builds upon Unreal Engine’s existing cinematic depth of field pipeline, which models real-world optics using physically-based blur calculations, including Circle of Confusion (CoC) and diaphragm-based rendering [3]. However, the default implementation lacks support for swirl distortion and non-uniform bokeh behavior, which this project addresses through custom UV manipulations and depth masking.
@@ -71,17 +71,17 @@ Figure 6. The swirl bokeh effect recreated in shader toy to nail down the math a
 
 To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
 
-[![outer_fresnel][images-fig7]](https://example.com)
+[![shader_graph][images-fig7]](https://example.com)
 Figure 7. Outer fresnel node graph. 
 
 As part of the development process, educational resources such as Unreal Engine’s official documentation [3] and YouTube tutorials [4] were used iteratively to test and refine implementation strategies. These materials helped clarify how Unreal internally handles cinematic depth of field, informing how custom logic could be layered on top of the engine’s rendering architecture. The final shader combines these techniques to deliver a stylized, camera-aware blur effect that mimics the analog flaws of Petzval-style lenses. 
 
-[![test_manny][images-fig8]](https://example.com)
+[![iteration01_graph][images-fig8]](https://example.com)
 Figure 8. Another iterative shader graph process in the hopes of recreating the math and swirl effect. 
 
 ## Result and Future Work
 
-[![ghostly_ref][images-fig9]](https://example.com)
+[![Iteration001][images-fig9]](https://example.com)
 Figure 9. The swirl effect in the current WIP state.  
 
 While the current implementation successfully applies a swirl and blur effect based on depth and radial distance, the result does not yet fully capture the smooth, concentric bokeh and nuanced lens falloff characteristic of the Helios 44-2. The blur edges are still too intense, and the swirl lacks the subtle gradient seen in real Petzval-style optics. Additionally, I still need to implement the depth mask to better isolate the in-focus subject from the background. 
@@ -90,8 +90,8 @@ Future work will focus on improving the quality of the radial blur by experiment
 
 ## Conclusion
 
-[![cel_shading][images-fig10]](https://example.com)
-Figure 10. Cel Shading 
+[![intended_blur][images-fig10]](https://example.com)
+Figure 10. The intended blur from shadertoy 
 
 This project represents an ongoing exploration into the expressive potential of real-time lens simulation. By attempting to recreate the signature swirl and optical imperfections of a Petzval-style lens in Unreal Engine, the shader aims to bridge the gap between technical rendering and emotional storytelling. Although the results are still in development, the process has revealed both the challenges and creative opportunities in translating analog lens behaviors into digital form. As the shader continues to evolve, it holds promise not only as a visual effect but as a storytelling tool—one that reintroduces warmth, texture, and imperfection into the precision of virtual production.
 
@@ -139,14 +139,14 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [images-fig1]: Assignment03_pics/Iteration002.png
 [images-fig2]: Assignment03_pics/real_bokeh.png
 [images-fig3]: Assignment03_pics/swirl_bokeh.png
-[images-fig4]: Assignment03_pics/incidentAngle.png
-[images-fig5]: Assignment03_pics/shader_graph_full.png
+[images-fig4]: Assignment03_pics/UE_Dof.png
+[images-fig5]: Assignment03_pics/rotation_matrix.png
 [images-fig6]: Assignment03_pics/shadertoy_code.png
-[images-fig7]: Assignment03_pics/Fresnel_outer.png
-[images-fig8]: Assignment03_pics/test_manny.png
-[images-fig9]: Assignment03_pics/ghostly_ref.png
-[images-fig10]: Assignment03_pics/Toon-shader.jpg
-[images-fig11]: Assignment03_pics/fresnel_comp.jpg
+[images-fig7]: Assignment03_pics/shader_graph.png
+[images-fig8]: Assignment03_pics/iteration01_graph.png
+[images-fig9]: Assignment03_pics/Iteration001.png
+[images-fig10]: Assignment03_pics/intended_blur.jpg
+
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
