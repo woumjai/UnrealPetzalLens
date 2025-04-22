@@ -137,7 +137,7 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 [images-fig1]: Assignment03_pics/Iteration002.png
-[images-fig2]: Assignment03_pics/regular_bokeh.png
+[images-fig2]: Assignment03_pics/real_bokeh.png
 [images-fig3]: Assignment03_pics/swirl_bokeh.png
 [images-fig4]: Assignment03_pics/incidentAngle.png
 [images-fig5]: Assignment03_pics/shader_graph_full.png
