@@ -44,7 +44,7 @@ Inspired by the optical quirks of vintage lenses, this project explores how real
 <!-- Introduction and Related Works -->
 ## Introduction and Related Works
 
-[![regular_DOF][images-fig2]](https://example.com)
+[![regular_DOF][images-fig2]](https://example.com) [2]
 
 Figure 2. Real-world photograph demonstrating conventional bokeh.
 
