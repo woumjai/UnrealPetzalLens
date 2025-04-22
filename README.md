@@ -39,7 +39,7 @@ Figure 1. Ghostly shader showcasing the Fresnel effect. The images display varia
 
 <!-- Abstract -->
 ## Abstract
-The Fresnel effect describes the relationship between a surface's reflectivity and the viewing angle, making it a critical component in realistic shading. This paper explores the significance of Fresnel in rendering and its role in conveying translucency and energy in visual effects. I detail the implementation of the Fresnel term in a custom ghostly shader, using it to enhance edge lighting and create an ethereal appearance. By manipulating Fresnel intensity and blending it with emissive properties, the shader dynamically responds to viewing angles, reinforcing an illusion of spectral presence. 
+Inspired by the optical quirks of vintage lenses, this project explores how real-time shaders can evoke emotional texture through simulated imperfection. The custom Petzval lens shader recreates the swirly bokeh and radial distortion of the Helios 44-2, not as a purely technical exercise, but as a tool for atmospheric storytelling. Built in Unreal Engine’s post-process pipeline, the shader blends circular blur, camera depth cues, and controlled UV distortion to mimic the eccentricities of analog glass. This work investigates how emulating physical lens characteristics in digital space can enhance visual mood, bridging the gap between photorealism and expressive rendering.
 
 [![fresnel_eq][images-fig2]](https://example.com)
 
@@ -51,13 +51,10 @@ Figure 2. Fresnel algorithm used in the ghostly shader. This implementation calc
 [![fresnel_lake][images-fig3]](https://example.com)
 Figure 3. Fresnel on a lake. As the viewing angle becomes steeper, the water appears more reflective, whereas at shallower angles, it looks less reflective and more transparent.
 
-In real-world optics, the Fresnel effect is influenced by polarization, which affects how light reflects based on the orientation of the light wave. However, in computer graphics, particularly for real-time rendering, this effect is often simplified to optimize performance. By omitting polarization, we focus on the relationship between viewing angle and surface reflectivity, a common CG approach that balances realism with efficiency. As John Hable discusses in his blog on filmic rendering [1], Fresnel is present in all materials, influencing how they interact with light, even if they don’t appear reflective at first glance.
-This paper explores how the Fresnel effect can be leveraged in shading techniques, such as in a custom ghostly shader, to create an ethereal appearance. By manipulating the intensity and blending it with emissive properties, the shader dynamically responds to viewing angles, enhancing the illusion of spectral presence.
+The Petzval-style bokeh, most famously produced by the Helios 44-2 lens, is known for its swirling background blur and dreamlike distortion around the edges of the frame—an optical flaw turned artistic signature. This project recreates that aesthetic in real-time using Unreal Engine’s post-process materials, blending radial UV distortion, circular blur sampling, and depth-based masking to emulate the physical behavior of vintage glass. As Ken Rockwell notes, bokeh is not simply about background blur but about the quality of that blur—the texture, shape, and smoothness that can evoke emotional tone and visual softness [1]. While Unreal Engine’s native Depth of Field supports Gaussian and cinematic bokeh, it lacks the expressive aberrations of older optics. This work draws from existing lens simulation methods in real-time rendering and academic research into depth-aware blur, but diverges by focusing on stylized imperfection rather than photorealism. Through this shader, the goal is to explore how analog lens artifacts can enrich virtual production pipelines, offering artists a way to evoke emotion through technically "incorrect" imagery.
 
 [![incident_angle][images-fig4]](https://example.com)
 Figure 4. Incident Angle. The equation and math behind the fresnel effect. 
-
-In Unreal Engine,the Fresnel effect can be leveraged to enhance visual storytelling, particularly in materials that require a sense of translucency or otherworldly presence. By carefully manipulating Fresnel-based shading, artists can create much more complex shading and lighting on assets, allowing for a more realistic rendering of surfaces by accurately simulating how light interacts with different materials. This effect enhances the perception of depth and realism, making objects appear more naturally integrated into their environments.
 
 
 ## Methodology
@@ -65,7 +62,11 @@ In Unreal Engine,the Fresnel effect can be leveraged to enhance visual storytell
 [![shader_graph][images-fig5]](https://example.com)
 Figure 5. This is my complete shader graph used to build my ghostly shader in Unreal. 
 
-In Unreal Engine, the Fresnel Material Expression calculates a falloff effect using the dot product between the surface normal and the camera direction [3]. This value determines how much of the Fresnel effect is applied; 0 when the normal faces the camera directly (no effect) and 1 when perpendicular (full effect). To develop my ghostly shader, I expanded on this Fresnel effect by adjusting its intensity and integrating emissive properties. By modifying the Fresnel exponent, I controlled the sharpness of the glow at different viewing angles. Higher exponents concentrated the glow along the edges, while lower exponents produced a softer, more diffused effect, reinforcing the ethereal aesthetic.
+The shader was implemented as a post-process material in Unreal Engine, designed to simulate the swirling bokeh and radial blur associated with Petzval-style lenses. The effect begins by computing the radial distance from the center of the screen for each pixel, which is used to drive a UV rotation function that distorts the image outward in a circular pattern. This rotated UV is sampled multiple times around a defined arc using a looped offset pattern, creating a soft blur that increases in intensity toward the edges of the frame.
+
+To control where the blur appears, a depth-based mask was generated by comparing the scene’s depth values to the camera’s focus distance. Pixels farther from the focal plane are assigned higher blur intensity, while in-focus regions remain sharp. This falloff is tunable via parameters such as aperture size, blur strength, swirl amount, and sample count, enabling real-time artistic control.
+
+By combining UV distortion, depth-aware masking, and multi-sample averaging, the final shader mimics the visual behavior of vintage glass in a digital context. All computations were performed within Unreal’s Material Editor using a mix of standard nodes and custom HLSL expressions where necessary for angle-based UV rotation.
 
 [![inner_fresnel][images-fig6]](https://example.com)
 Figure 6. Inner fresnel node graph. 
@@ -73,10 +74,6 @@ Figure 6. Inner fresnel node graph.
 
 [![outer_fresnel][images-fig7]](https://example.com)
 Figure 7. Outer fresnel node graph. 
-
-To further enhance the spectral presence, I blended the Fresnel term with an emissive color, adjusting bias and scale parameters to control brightness and falloff. This allowed me to fine-tune the shader’s glow intensity and ensure a seamless transition between light and shadow. Additionally, I employed lerp (linear interpolation) functions to dynamically balance the Fresnel effect with other shading components, preventing abrupt transitions and maintaining realism in motion.
-
-Finally, I applied and tested the shader on various assets, including character models and environmental elements to check the look and feel. By comparing different Fresnel exponent values, I observed how the shader influenced the perception of depth and translucency. The final implementation successfully enhanced the spectral quality of materials while maintaining real-time performance, demonstrating how Fresnel-based shading can be effectively used to create immersive supernatural effects in Unreal Engine.
 
 [![test_manny][images-fig8]](https://example.com)
 
@@ -87,9 +84,9 @@ Figure 8. My shader on the mannequin
 
 Figure 9. My ghostly reference that I worked off of and used as an aesthetic basis. 
 
-The implemented Fresnel-based shader successfully enhanced the perception of translucency and spectral presence in Unreal Engine. By adjusting the Fresnel exponent, intensity, and emissive blending, the shader created a dynamic interaction with viewing angles, reinforcing the illusion of an ethereal form. Testing across different assets demonstrated its versatility, effectively improving the realism of ghostly and translucent materials while maintaining real-time performance.
+While the current implementation successfully applies a swirl and blur effect based on depth and radial distance, the result does not yet fully capture the smooth, concentric bokeh and nuanced lens falloff characteristic of the Helios 44-2. The blur edges are still too harsh, and the swirl lacks the subtle gradient seen in real Petzval-style optics. Additionally, the depth mask requires further refinement to better isolate the in-focus subject from the background.
 
-For future work, Fresnel shading can be explored as a tool for stylization beyond realism. Many non-photorealistic rendering techniques, such as toon shading and painterly effects, use Fresnel to create bold rim highlights that emphasize form and silhouette. By modifying the Fresnel term with custom color gradients, artists can achieve unique aesthetic effects suited for animation, interactive media, or experimental visual styles. Additionally, integrating procedural noise or texture-driven Fresnel variations could enhance artistic expression by allowing more dynamic and unconventional shading responses. Expanding the shader’s flexibility in this way would open new possibilities for creative stylization in real-time rendering.
+Future work will focus on improving the quality of the radial blur by experimenting with smoother sampling strategies, incorporating more realistic falloff curves, and possibly implementing chromatic aberration or vignetting for added authenticity. There is also potential to optimize performance by reducing shader cost while maintaining visual fidelity. Ultimately, the goal is to achieve a real-time, expressive bokeh effect that is both technically sound and emotionally evocative—bringing the imperfections of analog glass into digital cinematic spaces.
 
 [![cel_shading][images-fig10]](https://example.com)
 
@@ -100,17 +97,17 @@ Figure 10. Cel Shading
 
 Figure 11. Fresnel for realistic shading
 
-The Fresnel effect plays a crucial role in realistic and stylized shading, influencing how materials interact with light based on viewing angles. This paper demonstrated its application in Unreal Engine through a custom ghostly shader, enhancing translucency and spectral presence. By adjusting Fresnel intensity and blending it with emissive properties, the shader created a dynamic, immersive effect. Beyond realism, Fresnel can also be leveraged for artistic stylization, offering new creative possibilities in rendering. Future exploration of procedural techniques and adaptive Fresnel scaling could further expand its use in both photorealistic and stylized visual effects.
+This project represents an ongoing exploration into the expressive potential of real-time lens simulation. By attempting to recreate the signature swirl and optical imperfections of a Petzval-style lens in Unreal Engine, the shader aims to bridge the gap between technical rendering and emotional storytelling. Although the results are still in development, the process has revealed both the challenges and creative opportunities in translating analog lens behaviors into digital form. As the shader continues to evolve, it holds promise not only as a visual effect but as a storytelling tool—one that reintroduces warmth, texture, and imperfection into the precision of virtual production.
 
 
 
 <!-- Bibliography -->
 ## Bibliography 
-[1] Hable, John. "Everything Has Fresnel." Filmic Worlds, 5 Dec. 2010, http://filmicworlds.com/blog/everything-has-fresnel/.
+[1] K. Rockwell, "Bokeh," KenRockwell.com, 2008. [Online]. Available: https://www.kenrockwell.com/tech/bokeh.html
 
-[2] Halladay, Kyle. "Fresnel Shaders: From the Ground Up." Kyle Halladay, 18 Feb. 2014, https://kylehalladay.com/blog/tutorial/2014/02/18/Fresnel-Shaders-From-The-Ground-Up.html.
+[2] T. Vorenkamp, "Understanding Bokeh," B&H eXplora, Jul. 28, 2021. [Online]. Available: https://www.bhphotovideo.com/explora/photography/tips-and-solutions/understanding-bokeh
 
-[3] Epic Games, Inc., “Using Fresnel in your Unreal Engine materials,” Epic Games Developer Documentation, Mar. 24, 2025. [Online]. Available: https://dev.epicgames.com/documentation/en-us/unreal-engine/using-fresnel-in-your-unreal-engine-materials.
+[3] Epic Games, "Cinematic Depth of Field in Unreal Engine," Unreal Engine Documentation, 2025. [Online]. Available: https://dev.epicgames.com/documentation/en-us/unreal-engine/cinematic-depth-of-field-in-unreal-engine
 
 [4] Racoon Artworks, Fresnel Effect – Why is water reflective?, 2021. Available: https://www.racoon-artworks.de/cgbasics/fresnel.php.
 
