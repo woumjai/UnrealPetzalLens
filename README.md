@@ -44,9 +44,9 @@ Inspired by the optical quirks of vintage lenses, this project explores how real
 <!-- Introduction and Related Works -->
 ## Introduction and Related Works
 
-[![regular_DOF][images-fig2]](https://example.com) [2]
+[![regular_DOF][images-fig2]](https://example.com) 
 
-Figure 2. Real-world photograph demonstrating conventional bokeh.
+Figure 2. Real-world photograph demonstrating conventional bokeh. [2]
 
 The Petzval-style bokeh, most famously produced by the Helios 44-2 lens, is known for its swirling background blur and dreamlike distortion around the edges of the frame—an optical flaw turned artistic signature. In photography and optics, bokeh refers to the visual quality of out-of-focus areas, particularly the way light is shaped and softened by a lens’s optical design. As Vorenkamp explains, this quality depends on elements like spherical aberration, aperture blade geometry, and the lens's internal construction, which collectively determine how background highlights are rendered [2]. Rockwell adds that bokeh is a direct result of how a lens reproduces out-of-focus point sources of light, and that even subtle differences in lens design can dramatically affect the smoothness and emotional tone of the background [1].
 
