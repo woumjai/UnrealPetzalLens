@@ -43,7 +43,7 @@ Inspired by the optical quirks of vintage lenses, this project explores how real
 
 [![fresnel_eq][images-fig2]](https://example.com)
 
-Figure 2. The swirly bokeh effect in real life.
+Figure 2. The swirly bokeh effect in real life. The background follows a concentric swirl blur while leaving the focal point or subject sharp and unaffected by distortion. 
 
 <!-- Introduction and Related Works -->
 ## Introduction and Related Works
@@ -142,17 +142,17 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-[images-fig1]: Assignment02_pics/ghostly_shader_finished.png
-[images-fig2]: Assignment02_pics/fresnel_eq.png
-[images-fig3]: Assignment02_pics/lake_ex.jpg
-[images-fig4]: Assignment02_pics/incidentAngle.png
-[images-fig5]: Assignment02_pics/shader_graph_full.png
-[images-fig6]: Assignment02_pics/Fresnel_inner.png
-[images-fig7]: Assignment02_pics/Fresnel_outer.png
-[images-fig8]: Assignment02_pics/test_manny.png
-[images-fig9]: Assignment02_pics/ghostly_ref.png
-[images-fig10]: Assignment02_pics/Toon-shader.jpg
-[images-fig11]: Assignment02_pics/fresnel_comp.jpg
+[images-fig1]: Assignment03_pics/ghostly_shader_finished.png
+[images-fig2]: Assignment03_pics/fresnel_eq.png
+[images-fig3]: Assignment03_pics/lake_ex.jpg
+[images-fig4]: Assignment03_pics/incidentAngle.png
+[images-fig5]: Assignment03_pics/shader_graph_full.png
+[images-fig6]: Assignment03_pics/Fresnel_inner.png
+[images-fig7]: Assignment03_pics/Fresnel_outer.png
+[images-fig8]: Assignment03_pics/test_manny.png
+[images-fig9]: Assignment03_pics/ghostly_ref.png
+[images-fig10]: Assignment03_pics/Toon-shader.jpg
+[images-fig11]: Assignment03_pics/fresnel_comp.jpg
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
