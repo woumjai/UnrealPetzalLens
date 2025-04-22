@@ -72,7 +72,7 @@ Figure 6. The swirl bokeh effect recreated in shader toy to nail down the math a
 To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this and applying the rotation matrix to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, and aperture size are exposed for real-time tuning.
 
 [![shader_graph][images-fig7]](https://example.com)
-Figure 7. Outer fresnel node graph. 
+Figure 7. Shader graph overview of the bokeh post process material. 
 
 As part of the development process, educational resources such as Unreal Engine’s official documentation [3] and YouTube tutorials [4] were used iteratively to test and refine implementation strategies. These materials helped clarify how Unreal internally handles cinematic depth of field, informing how custom logic could be layered on top of the engine’s rendering architecture. The final shader combines these techniques to deliver a stylized, camera-aware blur effect that mimics the analog flaws of Petzval-style lenses. 
 
