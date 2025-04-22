@@ -33,7 +33,7 @@ This project recreates the distinct swirly bokeh effect of the vintage Helios 44
   </p>
 </div>
 
-[![finished_shader][images-fig1]](https://example.com)
+[![WIP_blur][images-fig1]](https://example.com)
 
 Figure 1. Post Process Material showcasing my WIP swirly bokeh effect in Unreal. 
 
@@ -41,65 +41,59 @@ Figure 1. Post Process Material showcasing my WIP swirly bokeh effect in Unreal.
 ## Abstract
 Inspired by the optical quirks of vintage lenses, this project explores how real-time shaders can evoke emotional texture through simulated imperfection. The custom Petzval lens shader recreates the swirly bokeh and radial distortion of the Helios 44-2, not as a purely technical exercise, but as a tool for atmospheric storytelling. Built in Unreal Engine’s post-process pipeline, the shader blends circular blur, camera depth cues, and controlled UV distortion to mimic the quirks of analog glass. This work investigates how emulating characteristics of physical lens in a digital space can enhance visual mood, bridging the gap between photorealism and expressive rendering.
 
-[![fresnel_eq][images-fig2]](https://example.com)
-
-Figure 2. The swirly bokeh effect in real life. The background follows a concentric swirl blur while leaving the focal point or subject sharp and unaffected by distortion. 
-
 <!-- Introduction and Related Works -->
 ## Introduction and Related Works
 
+[![fresnel_eq][images-fig2]](https://example.com)
+
+Figure 2. Real-world photograph demonstrating conventional bokeh.
+
+The Petzval-style bokeh, most famously produced by the Helios 44-2 lens, is known for its swirling background blur and dreamlike distortion around the edges of the frame—an optical flaw turned artistic signature. In photography and optics, bokeh refers to the visual quality of out-of-focus areas, particularly the way light is shaped and softened by a lens’s optical design. As Vorenkamp explains, this quality depends on elements like spherical aberration, aperture blade geometry, and the lens's internal construction, which collectively determine how background highlights are rendered [2]. Rockwell adds that bokeh is a direct result of how a lens reproduces out-of-focus point sources of light, and that even subtle differences in lens design can dramatically affect the smoothness and emotional tone of the background [1].
+
 [![fresnel_lake][images-fig3]](https://example.com)
-Figure 3. Fresnel on a lake. As the viewing angle becomes steeper, the water appears more reflective, whereas at shallower angles, it looks less reflective and more transparent.
+Figure 3. The swirly bokeh effect in real life. The background follows a concentric swirl blur while leaving the focal point or subject sharp and unaffected by distortion. 
 
-The Petzval-style bokeh, most famously produced by the Helios 44-2 lens, is known for its swirling background blur and dreamlike distortion around the edges of the frame—an optical flaw turned artistic signature. This project recreates that aesthetic in real-time using Unreal Engine’s post-process materials, blending radial UV distortion, circular blur sampling, and depth-based masking to emulate the physical behavior of vintage glass. As Ken Rockwell notes, bokeh is not simply about background blur but about the quality of that blur—the texture, shape, and smoothness that can evoke emotional tone and visual softness [1]. While Unreal Engine’s native Depth of Field supports Gaussian and cinematic bokeh, it lacks the expressive aberrations of older optics. This work draws from existing lens simulation methods in real-time rendering and academic research into depth-aware blur, but diverges by focusing on stylized imperfection rather than photorealism. Through this shader, the goal is to explore how analog lens artifacts can enrich virtual production pipelines, offering artists a way to evoke emotion through technically "incorrect" imagery.
-
-[![incident_angle][images-fig4]](https://example.com)
-Figure 4. Incident Angle. The equation and math behind the fresnel effect. 
+This project draws from these principles to investigate how analog lens behavior can be emulated for artistic effect in real-time rendering. Built within Unreal Engine’s post-process pipeline, the shader incorporates depth-based masking, radial UV distortion, and circular blur sampling to replicate the characteristic swirl of Petzval-style optics. While cinematic depth of field in Unreal achieves photographic realism, it often lacks the expressive asymmetries and nuanced aberrations that give vintage lenses their signature look. This shader embraces those imperfections, using them not as flaws to be corrected, but as visual tools to evoke atmosphere and memory within virtual production workflows. 
 
 
 ## Methodology
 
+[![incident_angle][images-fig4]](https://example.com)
+Figure 4. DOF demonstrated in unreal natively. Image sourced from.[3]
+
 [![shader_graph][images-fig5]](https://example.com)
-Figure 5. This is my complete shader graph used to build my ghostly shader in Unreal. 
+Figure 5. The demo scene with only native unreal DOF.
 
 The shader was implemented as a custom post-process material in Unreal Engine to recreate the swirling bokeh and radial blur associated with Petzval-style lenses. This work builds upon Unreal Engine’s existing cinematic depth of field pipeline, which models real-world optics using physically-based blur calculations, including Circle of Confusion (CoC) and diaphragm-based rendering [3]. However, the default implementation lacks support for swirl distortion and non-uniform bokeh behavior, which this project addresses through custom UV manipulations and depth masking.
 
-To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
-
-As part of the development process, educational resources such as Unreal Engine’s official documentation [3] and YouTube tutorials [4] were used iteratively to test and refine implementation strategies. These materials helped clarify how Unreal internally handles cinematic depth of field, informing how custom logic could be layered on top of the engine’s rendering architecture. The final shader combines these techniques to deliver a stylized, camera-aware blur effect that mimics the analog flaws of Petzval-style lenses.
-
 [![inner_fresnel][images-fig6]](https://example.com)
-Figure 6. Inner fresnel node graph. 
+Figure 6. The swirl bokeh effect recreated in shader toy to nail down the math and implementation look first.  
 
+To emulate the Helios 44-2 aesthetic, the shader calculates the radial distance from each pixel to the screen center, using this to rotate UVs around the image. Multiple samples are taken along these rotated offsets and averaged to create a blur that increases with distance from the focal plane. A depth-based mask—constructed by comparing the camera’s focus distance with the scene’s depth—isolates the effect to out-of-focus regions. Parameters like swirl intensity, aperture size, and sample count are exposed for real-time tuning.
 
 [![outer_fresnel][images-fig7]](https://example.com)
 Figure 7. Outer fresnel node graph. 
 
-[![test_manny][images-fig8]](https://example.com)
+As part of the development process, educational resources such as Unreal Engine’s official documentation [3] and YouTube tutorials [4] were used iteratively to test and refine implementation strategies. These materials helped clarify how Unreal internally handles cinematic depth of field, informing how custom logic could be layered on top of the engine’s rendering architecture. The final shader combines these techniques to deliver a stylized, camera-aware blur effect that mimics the analog flaws of Petzval-style lenses. 
 
-Figure 8. My shader on the mannequin 
+[![test_manny][images-fig8]](https://example.com)
+Figure 8. Another iterative shader graph process in the hopes of recreating the math and swirl effect. 
+
 ## Result and Future Work
 
 [![ghostly_ref][images-fig9]](https://example.com)
+Figure 9. The swirl effect in the current WIP state.  
 
-Figure 9. My ghostly reference that I worked off of and used as an aesthetic basis. 
-
-While the current implementation successfully applies a swirl and blur effect based on depth and radial distance, the result does not yet fully capture the smooth, concentric bokeh and nuanced lens falloff characteristic of the Helios 44-2. The blur edges are still too harsh, and the swirl lacks the subtle gradient seen in real Petzval-style optics. Additionally, the depth mask requires further refinement to better isolate the in-focus subject from the background.
+While the current implementation successfully applies a swirl and blur effect based on depth and radial distance, the result does not yet fully capture the smooth, concentric bokeh and nuanced lens falloff characteristic of the Helios 44-2. The blur edges are still too intense, and the swirl lacks the subtle gradient seen in real Petzval-style optics. Additionally, I still need to implement the depth mask to better isolate the in-focus subject from the background. 
 
 Future work will focus on improving the quality of the radial blur by experimenting with smoother sampling strategies, incorporating more realistic falloff curves, and possibly implementing chromatic aberration or vignetting for added authenticity. There is also potential to optimize performance by reducing shader cost while maintaining visual fidelity. Ultimately, the goal is to achieve a real-time, expressive bokeh effect that is both technically sound and emotionally evocative—bringing the imperfections of analog glass into digital cinematic spaces.
 
-[![cel_shading][images-fig10]](https://example.com)
+## Conclusion
 
+[![cel_shading][images-fig10]](https://example.com)
 Figure 10. Cel Shading 
 
-## Conclusion
-[![fresnel_comp][images-fig11]](https://example.com)
-
-Figure 11. Fresnel for realistic shading
-
 This project represents an ongoing exploration into the expressive potential of real-time lens simulation. By attempting to recreate the signature swirl and optical imperfections of a Petzval-style lens in Unreal Engine, the shader aims to bridge the gap between technical rendering and emotional storytelling. Although the results are still in development, the process has revealed both the challenges and creative opportunities in translating analog lens behaviors into digital form. As the shader continues to evolve, it holds promise not only as a visual effect but as a storytelling tool—one that reintroduces warmth, texture, and imperfection into the precision of virtual production.
-
-
 
 <!-- Bibliography -->
 ## Bibliography 
@@ -142,7 +136,7 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-[images-fig1]: Assignment03_pics/ghostly_shader_finished.png
+[images-fig1]: Assignment03_pics/Iteration002.png
 [images-fig2]: Assignment03_pics/fresnel_eq.png
 [images-fig3]: Assignment03_pics/lake_ex.jpg
 [images-fig4]: Assignment03_pics/incidentAngle.png
