@@ -145,7 +145,7 @@ VIZA 626 Class Website: [https://sites.google.com/view/viza626/](https://sites.g
 [images-fig7]: Assignment03_pics/shader_graph.png
 [images-fig8]: Assignment03_pics/iteration01_graph.png
 [images-fig9]: Assignment03_pics/Iteration001.png
-[images-fig10]: Assignment03_pics/intended_blur.jpg
+[images-fig10]: Assignment03_pics/intended_blur.png
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
