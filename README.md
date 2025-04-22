@@ -62,7 +62,7 @@ This project draws from these principles to investigate how analog lens behavior
 Figure 4. DOF demonstrated in unreal natively. Image sourced from.[3]
 
 [![rotation_matrix][images-fig5]](https://example.com)
-Figure 5. The demo scene with only native unreal DOF.
+Figure 5. The rotation matrix used to rotate the pixels and recreate a swirl effect. 
 
 The shader was implemented as a custom post-process material in Unreal Engine to recreate the swirling bokeh and radial blur associated with Petzval-style lenses. This work builds upon Unreal Engine’s existing cinematic depth of field pipeline, which models real-world optics using physically-based blur calculations, including Circle of Confusion (CoC) and diaphragm-based rendering [3]. However, the default implementation lacks support for swirl distortion and non-uniform bokeh behavior, which this project addresses through custom UV manipulations and depth masking.
 
