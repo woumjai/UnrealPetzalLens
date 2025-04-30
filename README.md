@@ -30,6 +30,7 @@ This project recreates the distinct swirly bokeh effect of the vintage Helios 44
     <a href="https://carhua.myportfolio.com">Carolyn Hua</a>
     &middot;
     <a href="https://sites.google.com/view/viza626/home">VIZA 626</a>
+    <a href="/Simulated_Petzal_Lens_in_Unreal.pdf" target="_blank">Link to PDF</a>
   </p>
 </div>
 
